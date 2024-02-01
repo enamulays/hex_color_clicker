@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equive="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       }
+       html{
+        font-size: 10px;
+       }
+       body{
+        content: '';
+        clear: both;
+       }
+       #root{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(211, 69, 69);
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+       }
+       #root h2 {
+        color: #2b2727;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+        font-size: 3rem;
+        text-shadow: .2rem .2rem .9rem #3a3131;
+       }
+       #btn{
+        padding: .5rem;
+        border-radius: .3rem;
+        border: .1rem solid rgb(156, 133, 133);
+        background: rgba(160, 128, 128, 0.719);
+        margin: 1rem;
+        font-size: 2rem;
+       }
+       #btn:hover {
+        background: rgb(221, 150, 150);
+       }
+       .inputhex{
+        font-size: 2rem;
+        width: 50rem;
+        border-radius: .5rem;
+        border: .1rem solid rgb(226, 226, 226);
+        margin: 1.5rem 0rem;
+        color: rgba(160, 117, 117, 0.856);
+        padding: .3rem .8rem;
+        float: left;
+       }
+       .copybtn {
+        padding: .5rem;
+        border-radius: .3rem;
+        box-shadow: .1rem .1rem .8rem rgb(173, 5, 224);
+        border: none;
+        background: rgba(0, 255, 255, 0.719);
+        margin: 1rem;
+        font-size: 2rem;
+        float: left;
+       }
+
+       .toast-messege{
+        position: fixed;
+        font-size: 2rem;
+        color: rgb(18, 255, 38);
+        top: 2rem;
+        right: 2rem;
+        padding: 1rem 2rem;
+        background-color: rgb(38, 0, 255);
+        box-shadow: .2rem .2rem .8rem rgb(76, 0, 255);
+       }
+
+       @media screen and (max-width: 980px){
+        html{
+            font-size: 8px;
+        }
+        .btn{
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+    }
+
+       @media screen and (max-width: 480px){
+        #btn{
+            font-size: 2rem;
+            margin-top: rem
+        }
+       }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2 id="headline">Click the Button to Change the Background Color</h2>
+        <input id="inputhex" class="inputhex">
+        <button type="button" id="copybtn" class="copybtn">copy</button>
+        <button class="btn1" type="button" id="btn">Click Here</button>
+    </div>
+
+    <script>
+        window.onload = function(){
+            main();
+        }
+        function main(){
+            const root = document.getElementById('root');
+            const btn = document.getElementById('btn');
+            const input = document.getElementById('inputhex');
+            const copybtn = document.getElementById('copybtn');
+
+
+
+            copybtn.addEventListener('click', function(){
+                navigator.clipboard.writeText(input.value);
+                this.style.background = "rgba(120, 223, 245, 0.719)";
+                setTimeout(() => {
+                this.style.backgroundColor = '';
+                }, 200);
+                generateToastMessege(`${input.value} Copied`);
+            });
+
+
+            btn.addEventListener('click', function(){
+                const hex = generateHex();
+                root.style.backgroundColor = hex;
+                input.value = hex;
+            });
+        }
+        
+
+        function generateHex(){
+            const red= Math.floor(Math.random() * 255);
+            const green= Math.floor(Math.random() * 255);
+            const blue= Math.floor(Math.random() * 255);
+            return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+        }
+
+        function generateToastMessege(msg){
+            const div = document.createElement('div');
+            div.innerText = msg;
+            document.body.appendChild(div);
+            div.className = 'toast-messege';
+        }
+    </script>
+        
